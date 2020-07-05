@@ -1,4 +1,13 @@
-# 利用 iBATIS 的 TypeHandler 对数据库字段进行加密
+# ibatis-crypt-helper
+
+一种 iBATIS 下简便的数据库字段加解密方案，利用 TypeHandler 实现。
+
+这是一个可以使用的模板项目，实际使用中可以根据需求修改加解密逻辑。
+
+## 环境要求
+
+* iBATIS 2.x
+* JDK 1.8 (可以修改加密方式降低版本要求)
 
 ## iBATIS 2.x 使用方法
 
@@ -21,12 +30,12 @@
 例子：
 ```xml
 <insert id="insertUser" parameterClass="User">
-    insert into user (name, age, card)
+    insert into user (name, age, phone)
     values
     (
         #name,handler=com.huiyadan.crypt.ibatis.CryptTypeHandler#,
         #age#,
-        #card,handler=com.huiyadan.crypt.ibatis.CryptTypeHandler#
+        #phone,handler=com.huiyadan.crypt.ibatis.CryptTypeHandler#
     )
 </insert>
 ```
@@ -35,10 +44,10 @@
 
 例子：
 ```xml
-<resultMap id="userResultMap" class="com.lianpay.User" >
+<resultMap id="BaseResultMap" class="com.lianpay.User" >
     <result column="name" property="name" typeHandler="com.huiyadan.crypt.ibatis.CryptTypeHandler" />
     <result column="age" property="age" />
-    <result column="card" property="card" typeHandler="com.huiyadan.crypt.ibatis.CryptTypeHandler" />
+    <result column="phone" property="phone" typeHandler="com.huiyadan.crypt.ibatis.CryptTypeHandler" />
 </resultMap>
 ```
 
